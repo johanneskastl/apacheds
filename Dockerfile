@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
+MAINTAINER Johannes Kastl <git@johannes-kastl.de>
 
 ENV JDK_VERSION=1.8.0 \
     APACHEDS_VERSION=2.0.0.AM27 \
