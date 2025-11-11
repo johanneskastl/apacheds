@@ -1,7 +1,6 @@
 FROM ubuntu:22.04
 
-MAINTAINER Johannes Kastl <git@johannes-kastl.de>
-
+LABEL org.opencontainers.image.authors="Johannes Kastl <git@johannes-kastl.de>"
 LABEL org.opencontainers.image.title="ApacheDS"
 LABEL org.opencontainers.image.description="ApacheDS™ is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group"
 LABEL org.opencontainers.image.source="https://github.com/johanneskastl/containerimage_apacheds"
