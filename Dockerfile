@@ -19,6 +19,7 @@ RUN apt-get update && \
     apt-get -y upgrade;apt-get clean;rm -rf /var/lib/apt/lists/*; \
     groupadd -r apacheds -g 433 && \
     mkdir /usr/local/apacheds && \
+    chown -R apacheds:apacheds /usr/local/apacheds && \
     useradd -u 431 -r -g apacheds -d /usr/local/apacheds -s /sbin/nologin -c "ApacheDS image user" apacheds && \
     curl https://downloads.apache.org/directory/apacheds/dist/$APACHEDS_VERSION/apacheds-$APACHEDS_VERSION.tar.gz -o /usr/local/apacheds/apacheds.tar.gz && \
     cd /usr/local/apacheds && \
@@ -26,14 +27,11 @@ RUN apt-get update && \
     mv apacheds-2.0.0.AM28-SNAPSHOT/* . && \
     mv lib/apacheds-service-2.0.0.AM28-SNAPSHOT.jar lib/apacheds-service-$APACHEDS_VERSION-SNAPSHOT.jar && \
     rm -rf apacheds-2.0.0.AM28-SNAPSHOT && \
-    mkdir /var/apacheds
-
-ADD run_apacheds.sh /usr/local/apacheds/bin/run_apacheds.sh
-ADD log4j.properties /usr/local/apacheds/conf/log4j.properties
-
-RUN chown -R apacheds:apacheds /usr/local/apacheds && \
+    mkdir /var/apacheds && \
     chown -R apacheds:apacheds /var/apacheds
 
+ADD --chown=apacheds:apacheds run_apacheds.sh /usr/local/apacheds/bin/run_apacheds.sh
+ADD --chown=apacheds:apacheds log4j.properties /usr/local/apacheds/conf/log4j.properties
 
 USER 431
 
