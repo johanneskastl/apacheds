@@ -5,16 +5,14 @@ LABEL org.opencontainers.image.title="ApacheDS"
 LABEL org.opencontainers.image.description="ApacheDS™ is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group"
 LABEL org.opencontainers.image.source="https://github.com/johanneskastl/containerimage_apacheds"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
-
+LABEL io.k8s.description="ApacheDS"
+LABEL io.k8s.display-name="ApacheDS"
 
 ENV JDK_VERSION=1.8.0
 ENV APACHEDS_VERSION=2.0.0.AM27
 ENV ADS_HOME=/usr/local/apacheds
 ENV ADS_INSTANCES=/var/apacheds
 ENV ADS_INSTANCE_NAME=default
-
-LABEL io.k8s.description="ApacheDS"
-LABEL io.k8s.display-name="ApacheDS"
 
 RUN apt-get update;apt-get -y install openjdk-8-jdk-headless curl apt-transport-https gnupg netcat ldap-utils && \
     apt-get -y upgrade;apt-get clean;rm -rf /var/lib/apt/lists/*; \
