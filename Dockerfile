@@ -23,14 +23,13 @@ RUN apt-get update && \
     curl https://downloads.apache.org/directory/apacheds/dist/$APACHEDS_VERSION/apacheds-$APACHEDS_VERSION.tar.gz -o /usr/local/apacheds/apacheds.tar.gz && \
     cd /usr/local/apacheds && \
     tar -xvzf apacheds.tar.gz && \
-    mv apacheds-${APACHEDS_VERSION}/* . && \
-    rm -rf apacheds-${APACHEDS_VERSION} && \
+    mv apacheds-2.0.0.AM28-SNAPSHOT/* . && \
+    mv lib/apacheds-service-2.0.0.AM28-SNAPSHOT.jar lib/apacheds-service-$APACHEDS_VERSION-SNAPSHOT.jar && \
+    rm -rf apacheds-2.0.0.AM28-SNAPSHOT && \
     mkdir /var/apacheds
 
 ADD run_apacheds.sh /usr/local/apacheds/bin/run_apacheds.sh
 ADD log4j.properties /usr/local/apacheds/conf/log4j.properties
-
-
 
 RUN chown -R apacheds:apacheds /usr/local/apacheds && \
     chown -R apacheds:apacheds /var/apacheds
