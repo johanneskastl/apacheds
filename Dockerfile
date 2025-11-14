@@ -16,7 +16,9 @@ ENV ADS_INSTANCE_NAME=default
 
 RUN apt-get update && \
     apt-get -y install openjdk-8-jdk-headless curl apt-transport-https gnupg netcat ldap-utils && \
-    apt-get -y upgrade;apt-get clean;rm -rf /var/lib/apt/lists/*; \
+    apt-get -y upgrade && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     groupadd -r apacheds -g 433 && \
     useradd -u 431 -r -g apacheds -d /usr/local/apacheds -s /sbin/nologin -c "ApacheDS image user" apacheds && \
     mkdir /usr/local/apacheds && \
