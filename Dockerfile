@@ -14,7 +14,8 @@ ENV ADS_HOME=/usr/local/apacheds
 ENV ADS_INSTANCES=/var/apacheds
 ENV ADS_INSTANCE_NAME=default
 
-RUN apt-get update;apt-get -y install openjdk-8-jdk-headless curl apt-transport-https gnupg netcat ldap-utils && \
+RUN apt-get update && \
+    apt-get -y install openjdk-8-jdk-headless curl apt-transport-https gnupg netcat ldap-utils && \
     apt-get -y upgrade;apt-get clean;rm -rf /var/lib/apt/lists/*; \
     groupadd -r apacheds -g 433 && \
     mkdir /usr/local/apacheds && \
