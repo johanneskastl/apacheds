@@ -5,10 +5,10 @@
 #
 # Environment Variable Prerequisites
 #
-#   Do not set the variables in this script. Instead put them into 
+#   Do not set the variables in this script. Instead put them into
 #   $ADS_HOME/bin/setenv.sh to keep your customizations separate.
 #
-#   ADS_HOME        (Optional) The directory that contains your apacheds 
+#   ADS_HOME        (Optional) The directory that contains your apacheds
 #                   install.  Defaults to the parent directory of the
 #                   directory containing this script.
 #
@@ -25,7 +25,7 @@
 #
 #   ADS_SHUTDOWN_PORT
 #                   (Optional) If specified, it must be a valid port number
-#                   between 1024 and 65536 on which ApacheDS will listen for 
+#                   between 1024 and 65536 on which ApacheDS will listen for
 #                   a connection to trigger a polite shutdown.  Defaults to 0
 #                   indicating a dynamic port allocation.
 #
@@ -38,10 +38,8 @@ set -m
 
 CLASSPATH=$(JARS=("$ADS_HOME"/lib/*.jar); IFS=:; echo "${JARS[*]}")
 
+# shellcheck disable=SC2153
 ADS_INSTANCE="$ADS_INSTANCES/$ADS_INSTANCE_NAME"
-
-ADS_OUT="$ADS_INSTANCE/log/apacheds.out"
-ADS_PID="$ADS_INSTANCE/run/apacheds.pid"
 
 eval "java $JAVA_OPTS $ADS_CONTROLS $ADS_EXTENDED_OPERATIONS $ADS_INTERMEDIATE_RESPONSES -Dlog4j.configuration=file:/usr/local/apacheds/conf/log4j.properties -Dapacheds.log.dir=$ADS_INSTANCE/log -classpath $CLASSPATH org.apache.directory.server.UberjarMain $ADS_INSTANCE 2>&1 &"
 
@@ -121,16 +119,21 @@ then
   /tmp/prerun.sh
 fi
 
-export DN_COMP=`echo $DN | sed 's/,.*//'`
+# shellcheck disable=SC2001
+DN_COMP="$(echo "${DN}" | sed 's/,.*//')"
+export DN_COMP
 export RDN=${DN_COMP/=/: }
-export RDN_VAL=`echo $DN_COMP | sed 's/.*=//'`
+# shellcheck disable=SC2001
+RDN_VAL="$(echo "${DN_COMP}" | sed 's/.*=//')"
+export RDN_VAL
 
-export CTX_ENTRY=`base64 -w 0 <<EOF
+CTX_ENTRY=$(base64 -w 0 <<EOF
 dn: $DN
 objectClass: $OBJECT_CLASS
 $RDN
-EOF`
-
+EOF
+)
+export CTX_ENTRY
 
 ldapmodify -H ldap://127.0.0.1:10389 -D uid=admin,ou=system -w secret -a <<EOF
 dn: ads-partitionId=$RDN_VAL,ou=partitions,ads-directoryServiceId=default,ou=config
@@ -298,7 +301,7 @@ echo "ApacheDS Restarted"
 if [[ -z "${LDIF_FILE}" ]]; then
     echo "No initial LDIF file provided"
 else
-    ldapmodify -H ldap://127.0.0.1:10389 -D uid=admin,ou=system -w secret -f $LDIF_FILE -a -c
+    ldapmodify -H ldap://127.0.0.1:10389 -D uid=admin,ou=system -w secret -f "${LDIF_FILE}" -a -c
 fi
 
 
@@ -317,6 +320,6 @@ EOF
 
 
 jnum=$(jobs -l | grep " $! " | sed 's/\[\(.*\)\].*/\1/')
-echo "Backgroung job number: $jnum"
+echo "Backgroung job number: ${jnum}"
 
-fg $jnum
+fg "${jnum}"
