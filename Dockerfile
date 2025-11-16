@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 LABEL org.opencontainers.image.authors="Johannes Kastl <git@johannes-kastl.de>"
 LABEL org.opencontainers.image.title="ApacheDS"
@@ -15,7 +15,7 @@ ENV ADS_INSTANCES=/var/apacheds
 ENV ADS_INSTANCE_NAME=default
 
 RUN apt-get update && \
-    apt-get -y install openjdk-8-jdk-headless curl apt-transport-https gnupg netcat ldap-utils && \
+    apt-get -y install openjdk-8-jdk-headless curl apt-transport-https gnupg netcat-openbsd ldap-utils && \
     apt-get -y upgrade && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
