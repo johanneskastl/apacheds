@@ -1,0 +1,24 @@
+{
+  "extends": ["helpers:pinGitHubActionDigests"],
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "labels": ["renovatebot-was-here"],
+  "addLabels": ["renovatebot-was-here", "{{depName}}"],
+  "bumpVersion": "patch",
+  "gitAuthor": "renovatebot <renovatebot@johannes-kastl.de>",
+  "separateMajorMinor": true,
+  "separateMinorPatch": true,
+  "separateMultipleMajor": true,
+  "separateMultipleMinor": true,
+  "prHourlyLimit": 0,
+  "branchConcurrentLimit": 0,
+  "prConcurrentLimit": 0,
+  "pre-commit": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "pinDigests": true
+    }
+  ]
+}
