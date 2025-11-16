@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM docker.io/library/ubuntu:24.04
 
 LABEL org.opencontainers.image.authors="Johannes Kastl <git@johannes-kastl.de>"
 LABEL org.opencontainers.image.title="ApacheDS"
