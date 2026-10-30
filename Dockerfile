@@ -1,4 +1,4 @@
-FROM docker.io/library/ubuntu:26.04@sha256:f3d28607ddd78734bb7f71f117f3c6706c666b8b76cbff7c9ff6e5718d46ff64
+FROM docker.io/library/ubuntu:26.04@sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
 
 LABEL org.opencontainers.image.authors="Johannes Kastl <git@johannes-kastl.de>"
 LABEL org.opencontainers.image.title="ApacheDS"
